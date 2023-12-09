@@ -7,8 +7,28 @@
 
 Le module est exporté vers NPM, il doit donc respecter les règles de codage de NPM et n'enfreindre aucune règle spécifique de ce service ni de Papillon.
 
-### Fonction
-- [x] Connection au compte
+### Fonctions
+- [x] Structure
+  - [X] Connection au compte
+  - [x] Communication avec API
+- [ ] Fonctionnalitées du module
+  - [x] Information sur le compte
+  - [ ] Recherche d'étatblissements
+  - [x] Informations sur l'établissement attaché au compte
+  - [x] Informations sur les réservations
+  - [x] Ajout/Suppression d'une réservation
+  - [x] Historique de transactions
+  - [ ] Information sur le solde
+  - [ ] Recupération du QR code
+- [ ] Integration dans papillon
+  - [ ] Ajout de la connection au compte Turboself
+  - [ ] Informations sur le compte
+  - [ ] Informations sur l'établissement
+  - [ ] Informations sur les réservations
+  - [ ] Ajout/Suppression d'une réservation
+  - [ ] Historique de transactions
+  - [ ] Recupération du QR code
+  - [ ] Information sur le solde
 
 ### Structure
 
