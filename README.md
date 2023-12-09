@@ -7,7 +7,7 @@
 
 Le module est exporté vers NPM, il doit donc respecter les règles de codage de NPM et n'enfreindre aucune règle spécifique de ce service ni de Papillon.
 
-### Fonctions
+### Roadmap
 - [x] Structure
   - [X] Connection au compte
   - [x] Communication avec API
