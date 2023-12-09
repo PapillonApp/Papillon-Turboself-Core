@@ -8,7 +8,7 @@
 Le module est exporté vers NPM, il doit donc respecter les règles de codage de NPM et n'enfreindre aucune règle spécifique de ce service ni de Papillon.
 
 ### Fonction
-[x] Connection au compte
+[ x ] Connection au compte
 
 ### Structure
 
