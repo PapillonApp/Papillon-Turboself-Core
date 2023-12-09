@@ -13,14 +13,14 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [x] Communication avec API
 - [ ] Fonctionnalitées du module
   - [x] Information sur le compte
-  - [ ] Recherche d'étatblissements
+  - [ ] Recherche d'établissements
   - [x] Informations sur l'établissement attaché au compte
   - [x] Informations sur les réservations
   - [x] Ajout/Suppression d'une réservation
   - [x] Historique de transactions
   - [ ] Information sur le solde
   - [ ] Recupération du QR code
-- [ ] Integration dans papillon
+- [ ] Integration dans Papillon
   - [ ] Ajout de la connection au compte Turboself
   - [ ] Informations sur le compte
   - [ ] Informations sur l'établissement
@@ -28,6 +28,9 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [ ] Ajout/Suppression d'une réservation
   - [ ] Historique de transactions
   - [ ] Recupération du QR code
+  - [ ] Ajout du QR dans dans Apple Carte (Wallet)
+  - [ ] Ajout du QR dans dans Google Wallet
+  - [ ] Ajout du QR dans dans Samsung Wallet
   - [ ] Information sur le solde
 
 ### Structure
