@@ -22,19 +22,15 @@ Le module est structuré de la manière suivante :
 
 ### Connexion par idenfitiants
 ```javascript
-const ED = require("papillon-ed-core");
-let ed = new ED();
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
 
-ed.auth.login("username", "password").then(() => {
-    let token = ed._token;
-    let prenom = ed.student.prenom
-
-    ed.homeworks.fetch().then(homeworks => {
-        //Traitement des devoirs
-    })
-})
-.catch(err => { //en cas d'erreur à la connexion
-    console.log(err)
+ts.login('username', 'password').then(async(e) => {
+  let info = await ts.getUserInfo()
+  let balance = await ts.getBalance()
+	let book = await ts.getBooking()
+  success = await ts.setBooking(book.weekId, book.days[0].dayNumber, false)
+	console.log(success)
 })
 ```
 
