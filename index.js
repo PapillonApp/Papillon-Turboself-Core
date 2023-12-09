@@ -1,4 +1,3 @@
-let login = require('./login.js')
 const baseURL = 'https://api-rest-prod.incb.fr/api/'
 
 function capitalize(string) {
