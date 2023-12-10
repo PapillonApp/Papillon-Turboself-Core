@@ -1,5 +1,5 @@
 {
-  "name" : "Papillon-Turboself-Core",
+  "name" : "papillon-turboself-core",
   "description" : "A package to interact with Turboself.",
   "homepage" : "https://github.com/PapillonApp/Papillon-Turboself-Core/",
   "keywords" : ["turboself", "self", "api", "papillon", "core"],
