@@ -18,7 +18,7 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [x] Informations sur les réservations
   - [x] Ajout/Suppression d'une réservation
   - [x] Historique de transactions
-  - [ ] Information sur le solde
+  - [x] Information sur le solde
   - [ ] Récupération du QR code
 - [ ] Integration dans Papillon
   - [ ] Ajout de la connection au compte Turboself
