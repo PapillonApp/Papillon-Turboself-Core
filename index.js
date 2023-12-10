@@ -165,6 +165,63 @@ class Session {
 			return false
 		}
 	}
+	
+	async getHitory() {
+		if (this.isLoggedIn) {
+			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId, {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var data = await res.json()
+			return {
+				user:{
+					id: data.id,
+					origId: data.idOrig,
+					type: data.type,
+					lastName: capitalize(data.nom),
+					firstName: capitalize(data.prenom),
+					class: data.division,
+					method: data.mode,
+					quality: data.qualite,
+					authorization: {
+						pay: data.droitPaiement,
+						book: data.droitReservation,
+						cafeteria: data.droitCafeteria
+					},
+					lastSync: data.dateDernSynchro,
+					disabled: data.desactive,
+					isPasswordSecure: data.mdpPrive,
+					cardData: data.carteCodee
+				},
+				etab: {
+					id: data.etab.id,
+					code2p5: data.etab.code2p5,
+					name: capitalize(data.etab.nom),
+					adress:{
+						line1: capitalize(data.etab.adr1),
+						line2: capitalize(data.etab.adr2),
+						postalCode: data.etab.cp,
+						city: capitalize(data.etab.ville)
+					},
+					contact: {
+						phone: data.etab.tel.match(/.{1,2}/g).join(' '),
+						mail: data.etab.configuration.email,
+						website: data.etab.configuration.url,
+					},
+					currency: data.etab.currencySymbol,
+					server:{
+						turboselfVersion: data.etab.versionTS,
+						ip: data.etab.pcServeur
+					},
+					firstSync: data.etab.datePremSynchro,
+					lastSync: data.etab.dateDernSynchro,
+					meal: {
+						cost: data.prixDej/100
+					},
+					minTransaction: data.etab.configuration.montantCreditMini/100
+				}
+			}
+		} else {
+			return {}
+		}
+	}
 }
 
 module.exports = Session

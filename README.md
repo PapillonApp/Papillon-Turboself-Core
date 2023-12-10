@@ -11,7 +11,7 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
 - [x] Structure
   - [X] Connection au compte
   - [x] Communication avec API
-- [ ] Fonctionnalitées du module
+- [ ] Fonctionnalités du module
   - [x] Information sur le compte
   - [ ] Recherche d'établissements
   - [x] Informations sur l'établissement attaché au compte
@@ -19,7 +19,7 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [x] Ajout/Suppression d'une réservation
   - [x] Historique de transactions
   - [ ] Information sur le solde
-  - [ ] Recupération du QR code
+  - [ ] Récupération du QR code
 - [ ] Integration dans Papillon
   - [ ] Ajout de la connection au compte Turboself
   - [ ] Informations sur le compte
@@ -27,20 +27,12 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [ ] Informations sur les réservations
   - [ ] Ajout/Suppression d'une réservation
   - [ ] Historique de transactions
-  - [ ] Recupération du QR code
+  - [ ] Récupération du QR code
   - [ ] Ajout du QR dans dans Apple Carte (Wallet)
   - [ ] Ajout du QR dans dans Google Wallet
   - [ ] Ajout du QR dans dans Samsung Wallet
   - [ ] Information sur le solde
 
-### Structure
-
-Le module est structuré de la manière suivante :
-- `src/fetch` : Contient les fonctions de récupération des données de l'API d'EcoleDirecte
-- `src/session.js` : Contient les fonctions de gestion de la session
-- `src/auth.js` : Contient les fonctions d'authentification
-- `src/errors.js` : Contient les erreurs pouvant être retournées par le module. *Les erreurs doivent suivre la même structure pour chaque module.*
-  
 ## Utilisation
 
 ### Connexion par idenfitiants
