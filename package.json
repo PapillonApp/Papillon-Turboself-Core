@@ -1,11 +1,10 @@
 {
-  "name": "papillon-turboself-core",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+  "name" : "papillon-turboself-core",
+  "description" : "A package to interact with Turboself.",
+  "homepage" : "https://github.com/PapillonApp/Papillon-Turboself-Core/",
+  "keywords" : ["turboself", "self", "api", "papillon", "core"],
+  "author" : "Rémy Godet <remy.godet@icloud.com>",
+  "repository" : {"type": "git", "url": "git://github.com/PapillonApp/Papillon-Turboself-Core.git"},
+  "main" : "index.js",
+  "version" : "1.0.1"
 }
