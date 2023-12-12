@@ -3,23 +3,24 @@
 
 **Ce module permet la connexion entre l'application Papillon et Turboself.**
 
-## Informations
+## ℹ️ Informations
 
 Le module est exporté vers NPM, il doit donc respecter les règles de codage de NPM et n'enfreindre aucune règle spécifique de ce service ni de Papillon.
 
-### Roadmap
+### ⌛️ Roadmap
 - [x] Structure
   - [X] Connection au compte
   - [x] Communication avec API
-- [ ] Fonctionnalités du module
-  - [x] Information sur le compte
-  - [ ] Recherche d'établissements
-  - [x] Informations sur l'établissement attaché au compte
-  - [x] Informations sur les réservations
-  - [x] Ajout/Suppression d'une réservation
-  - [x] Historique de transactions complet
-  - [x] Information sur le solde
-  - [ ] Récupération du QR code
+- [X] Fonctionnalités du module
+  - [x] Connexion au compte
+  - [x] Information sur l'utilisateur
+  - [x] Obtention de l'accueil
+  - [x] Obtention des réservations de la semaine
+  - [x] Définir des réservations de la semaine
+  - [x] Obtenir l'historique complet de transaction
+  - [x] Obtenir les informations du solde
+  - [x] Obtenir les informations de réservation du soir
+  - [x] Obtenir les informations de l'établissement
 - [ ] Integration dans Papillon
   - [ ] Ajout de la connection au compte Turboself
   - [ ] Informations sur le compte
@@ -33,24 +34,23 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [ ] Ajout du QR dans dans Samsung Wallet
   - [ ] Information sur le solde
 
-## Utilisation
+## 🔧 Utilisation
 
 ### Connexion par idenfitiants
 ```javascript
 const TurboSelf = require('papillon-turboself-core')
 let ts = new TurboSelf();
 
-ts.login('username', 'password').then(async(e) => {
-  let info = await ts.getUserInfo()
-  let balance = await ts.getBalance()
-	let book = await ts.getBooking()
-  success = await ts.setBooking(book.weekId, book.days[0].dayNumber, false)
-	console.log(success)
-})
+async function main() {
+  let result = await ts.login('username@mail.com', 'Password1234')
+  console.log(result)
+}
+
+main()
 ```
 
-> **Warning**
-> Si le token donné est invalide, le module ne pourra pas en générer un nouveau (par manque d'identifiants) et donnera une erreur de token invalide/expiré
+> **⚠️ Attention**
+> Certaines fonctions peuvent ne pas bien fonctionner en fonction de votre établissement et des autorisations fournis par votre établissement. L'échantillon d'établissement ayant permis la création de ce module est bien trop faible pour faire une promesse de fonctionnement.
 
-## Documentation
+## 📖 Documentation
 Voir le fichier `DOCUMENTATION.md`

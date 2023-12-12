@@ -1,25 +1,26 @@
 # Documentation
 ## Sommaire
-- Installation
-- Gestion des erreurs
-- Fonctions
-	- login()
-	- getUserInfo()
-	- getHome()
-	- getBooking()
-	- setBooking()
-	- getHistory()
-	- getBalance()
-	- canBookEvening()
-	- getEtabInfo()
+- [Installation](#installation)
+- [Gestion des erreurs](#erreurs)
+- [Fonctions](#fonctions)
+	- [login()](#login())
+	- [getUserInfo()](#getUserInfo())
+	- [getHome()](#getHome())
+	- [getBooking()](#getBooking())
+	- [setBooking()](#setBooking())
+	- [getHistory()](#getHistory())
+	- [getBalance()](#getBalance())
+	- [canBookEvening()](#canBookEvening())
+	- [getEtabInfo()](#getEtabInfo())
 
-
+<a name="installation"></a>
 ## Installation
 With NPM :
 <br>`npm install papillon-turboself-core`
+<a name="erreurs"></a>
 ## Gestion des erreurs
 Chaque réponse retourner de ce package retourne la même forme de réponse.
-```json
+```javascript
 {
   error: false, //BOOL : Y'a t'il une erreur
   errorMessage: '', //STRING : Raison de l'erreur (vide si il y a pas d'erreur)
@@ -28,7 +29,9 @@ Chaque réponse retourner de ce package retourne la même forme de réponse.
   }
 }
 ```
+<a name="fonctions"></a>
 ## Fonctions
+<a name="login()"></a>
 ### login()
 **Description:**<br>
 Permet de se connecter au service MyTurboself
@@ -49,7 +52,7 @@ async function main() {
 main()
 ```
 **Retour:**<br>
-```json
+```javascript
 {
   error: false,
   errorMessage: '',
@@ -60,7 +63,7 @@ main()
   }
 }
 ```
-
+<a name="getUserInfo()"></a>
 ### getUserInfo()
 **Description:**<br>
 Obtient les informations de l'utilisateur connecté
@@ -82,7 +85,7 @@ async function main() {
 main()
 ```
 **Retour:**<br>
-```json
+```javascript
 {
   error: false,
   errorMessage: '',
@@ -107,7 +110,7 @@ main()
   }
 }
 ```
-
+<a name="getHome()"></a>
 ### getHome()
 **Description:**<br>
 Obtient l'écran d'acceuil de l'utilisateur connecté
@@ -129,7 +132,7 @@ async function main() {
 main()
 ```
 **Retour:**<br>
-```json
+```javascript
 {
   error: false,
   errorMessage: '',
@@ -152,7 +155,7 @@ main()
   }
 }
 ```
-
+<a name="getBooking()"></a>
 ### getBooking()
 **Description:**<br>
 Obtient les réservations d'une semaine de l'utilisateur connecté
@@ -174,7 +177,7 @@ async function main() {
 main()
 ```
 **Retour:**<br>
-```json
+```javascript
 {
   error: false,
   errorMessage: '',
@@ -195,7 +198,7 @@ main()
   }
 }
 ```
-
+<a name="setBooking()"></a>
 ### setBooking()
 **Description:**<br>
 Défini une réservation de l'utilisateur connecté
@@ -217,7 +220,7 @@ async function main() {
 main()
 ```
 **Retour:**<br>
-```json
+```javascript
 {
   error: false,
   errorMessage: '',
@@ -225,6 +228,160 @@ main()
 	id: 'XXXXXXXXXXX',
 	dayNumber: 3,
 	booked: false
+  }
+}
+```
+<a name="getHistory()"></a>
+### getHistory()
+**Description:**<br>
+Obtient l'historique complet de l'utilisateur connecté
+<br><br>**Paramètres:**<br>
+```javascript
+getHistory()
+```
+**Exemple:**<br>
+```javascript
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
+
+async function main() {
+	await ts.login('username@mail.com', 'Password1234')
+	let result = ts.getHistory()
+	console.log(result)
+}
+
+main()
+```
+**Retour:**<br>
+```javascript
+{
+  error: false,
+  errorMessage: '',
+  data: [
+    {
+      id: XXXXXXXXX,
+      name: 'Self',
+      cost: -40.70,
+      date: '20XX-XX-XXTXX:XX:XX.XXXZ'
+    },
+	...
+  }
+]
+}
+```
+<a name="getBalance()"></a>
+### getBalance()
+**Description:**<br>
+Obtient le solde de l'utilisateur connecté
+<br><br>**Paramètres:**<br>
+```javascript
+getBalance()
+```
+**Exemple:**<br>
+```javascript
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
+
+async function main() {
+	await ts.login('username@mail.com', 'Password1234')
+	let result = ts.getBalance()
+	console.log(result)
+}
+
+main()
+```
+**Retour:**<br>
+```javascript
+{
+  error: false,
+  errorMessage: '',
+  data: {
+    id: 'XXXXXXXXXX',
+    balance: 10.0,
+    estimatedBalance: -45.13,
+    estimatedFor: '20XX-XX-XX'
+  }
+}
+```
+<a name="canBookEvening()"></a>
+### canBookEvening()
+**Description:**<br>
+Retourne si l'utilisateur connecté peut réserver le soir
+<br><br>**Paramètres:**<br>
+```javascript
+canBookEvening()
+```
+**Exemple:**<br>
+```javascript
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
+
+async function main() {
+	await ts.login('username@mail.com', 'Password1234')
+	let result = ts.canBookEvening()
+	console.log(result)
+}
+
+main()
+```
+**Retour:**<br>
+```javascript
+{
+  error: false,
+  errorMessage: '',
+  data: false
+}
+```
+<a name="getEtabInfo()"></a>
+### getEtabInfo()
+**Description:**<br>
+Obtient les informations de l'établissement de l'utilisateur connecté
+<br><br>**Paramètres:**<br>
+```javascript
+getEtabInfo()
+```
+**Exemple:**<br>
+```javascript
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
+
+async function main() {
+	await ts.login('username@mail.com', 'Password1234')
+	let result = ts. getEtabInfo()
+	console.log(result)
+}
+
+main()
+```
+**Retour:**<br>
+```javascript
+{
+  error: false,
+  errorMessage: '',
+  data: {
+    id: XXXX,
+    TSid: 1,
+    code2p5: XXXX,
+    name: 'Lycée/Collège XXX',
+    version: 'XXX',
+    disabled: false,
+    symbol: '€',
+    minCreditAdd: 15.5,
+    address: {
+      line1: '1 Rue Doe Jonh',
+      line2: '',
+      postalCode: '10000',
+      city: 'Ville connu'
+    },
+    contact: {
+      url: 'http://mon.lycee-ou-college.com/',
+      email: 'mail@college-lycee.com',
+      tel: '0606060606'
+    },
+    sync: {
+      first: '20XX-XX-XXTXX:XX:XX.XXXZ',
+      last: '20XX-XX-XXTXX:XX:XX.XXXZ'
+    }
   }
 }
 ```

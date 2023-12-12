@@ -228,7 +228,7 @@ class Session {
 				name: capitalize(data.etab.nom),
 				version: data.etab.versionTS,
 				disabled: data.etab.desactive,
-				symbol: data.etab.currencySymbol,
+				symbol: data.etab.currencySymbol/100,
 				minCreditAdd: data.etab.configuration.montantCreditMini,
 				address: {
 					line1: capitalize(data.etab.adr1),
@@ -239,8 +239,7 @@ class Session {
 				contact: {
 					url: data.etab.configuration.url,
 					email: data.etab.configuration.email,
-					tel: data.etab.numEtab,
-					telTS: data.etab.tel,
+					tel: data.etab.tel,
 				},
 				sync: {
 					first: data.etab.datePremSynchro,
