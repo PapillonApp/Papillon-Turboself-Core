@@ -367,6 +367,7 @@ main()
     disabled: false,
     symbol: '€',
     minCreditAdd: 15.5,
+    prixDej: 2.87,
     address: {
       line1: '1 Rue Doe Jonh',
       line2: '',
