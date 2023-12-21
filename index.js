@@ -228,8 +228,9 @@ class Session {
 				name: capitalize(data.etab.nom),
 				version: data.etab.versionTS,
 				disabled: data.etab.desactive,
-				symbol: data.etab.currencySymbol/100,
-				minCreditAdd: data.etab.configuration.montantCreditMini,
+				symbol: data.etab.currencySymbol,
+				prixDej: date.prixDej/100,
+				minCreditAdd: data.etab.configuration.montantCreditMini/100,
 				address: {
 					line1: capitalize(data.etab.adr1),
 					line2: capitalize(data.etab.adr2),
