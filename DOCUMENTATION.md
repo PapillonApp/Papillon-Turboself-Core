@@ -386,3 +386,44 @@ main()
   }
 }
 ```
+
+<a name="getLastPayment()"></a>
+### getLastPayment()
+**Description:**<br>
+Obtient le dernier paiments de l'utilisateur connecté
+<br><br>**Paramètres:**<br>
+```javascript
+getLastPayment()
+```
+**Exemple:**<br>
+```javascript
+const TurboSelf = require('papillon-turboself-core')
+let ts = new TurboSelf();
+
+async function main() {
+	await ts.login('username@mail.com', 'Password1234')
+	let result = ts.getLastPayment()
+	console.log(result)
+}
+
+main()
+```
+**Retour:**<br>
+```javascript
+{
+	error: false,
+	errorMessage:'',
+	data: {
+		id: 0000000,
+		etabId: 0000000,
+		date: '20XX-XX-XXTXX:XX:XX.XXXZ',
+		amount: 20,
+		method: 'CB',
+		updateDate: '20XX-XX-XXTXX:XX:XX.XXXZ',
+		status: 'OK',
+		transactionId: 'XXXXXXXXXXXXXX',
+		token: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+		message: 'Paiement accepté'
+	}
+}
+```

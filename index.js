@@ -17,24 +17,23 @@ class Session {
 	constructor() {
 		this._token = null;
 		this.isLoggedIn = false;
-		
+
 		this.userId = null;
 		this.etabId = null;
 	}
-	
-	
-	
+
+
 	async login(username, password) {
-		var res = await fetch(baseURL + 'v1/auth/login', 
-		{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({username: username,password: password})
-		})
+		var res = await fetch(baseURL + 'v1/auth/login',
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({username: username, password: password})
+			})
 		var data = await res.json()
-		
+
 		if (data.access_token !== undefined) {
 			this._token = data.access_token
 			this.userId = data.userId
@@ -50,12 +49,15 @@ class Session {
 			}
 			return makeReturnJSON(true, 'Unkown error', {})
 		}
-		
+
 	}
-	
+
 	async getUserInfo() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId, {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId, {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			return makeReturnJSON(false, '', {
 				id: data.id,
@@ -80,27 +82,30 @@ class Session {
 			return makeReturnJSON(true, 'You\'re not logged in !', {})
 		}
 	}
-	
+
 	async getHome() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v2/hotes/' + this.etabId + '/accueil', {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v2/hotes/' + this.etabId + '/accueil', {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			var array = []
-			data.historiques.forEach((hist)=>{
+			data.historiques.forEach((hist) => {
 				var val = 0
 				if (hist.credit != undefined) {
-					val = hist.credit/100
+					val = hist.credit / 100
 				} else {
-					val = (hist.debit/100)*-1
+					val = (hist.debit / 100) * -1
 				}
 				array.push({id: hist.id, name: hist.detail, date: hist.date, cost: val})
 			})
 			return makeReturnJSON(false, '', {
 				userInfo: {
 					id: data.comptesHote[0].id,
-					balance: data.comptesHote[0].montant/100,
-					estimatedBalance: data.comptesHote[0].montantEstime/100,
-					estimatedFor: data.comptesHote[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/','.').replace(/(\d{2})\.(\d{2})\.(\d{4})/,'$3-$2-$1'),
+					balance: data.comptesHote[0].montant / 100,
+					estimatedBalance: data.comptesHote[0].montantEstime / 100,
+					estimatedFor: data.comptesHote[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'),
 				},
 				history: array
 			})
@@ -108,7 +113,7 @@ class Session {
 			return makeReturnJSON(true, 'You\'re not logged in !', {})
 		}
 	}
-	
+
 	async getBooking(date = new Date()) {
 		if (date.getDay() == 6 || date.getDay() == 0) {
 			while (date.getDay() != 1) {
@@ -121,14 +126,19 @@ class Session {
 		}
 		let strDate = ("0" + date.getDate()).slice(-2) + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear()
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/reservations/hotes/' + this.etabId + '/semaines?date=' + strDate, {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/reservations/hotes/' + this.etabId + '/semaines?date=' + strDate, {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			var array = []
 			var weekId = 0
 			if (data.rsvWebDto[0] != undefined) {
 				data.rsvWebDto[0].jours.forEach((day) => {
 					var booked = false
-					if (day.dayReserv == 1) {booked = true}
+					if (day.dayReserv == 1) {
+						booked = true
+					}
 					array.push({
 						id: day.id,
 						dayNumber: day.dayOfWeek,
@@ -136,49 +146,57 @@ class Session {
 						lastSyncBooked: day.reservDernSynchro,
 						canEdit: day.autorise,
 						label: capitalize(day.dayLabel).replace('. ', ''),
-						date: ("0" + (date.getDate() + (day.dayOfWeek - 1))).slice(-2) + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear()})
+						date: ("0" + (date.getDate() + (day.dayOfWeek - 1))).slice(-2) + '-' + ("0" + (date.getMonth() + 1)).slice(-2) + '-' + date.getFullYear()
+					})
 				})
 				weekId = data.rsvWebDto[0].id
 			}
-			
-			return makeReturnJSON(false, '', {weekId:weekId,days: array})
+
+			return makeReturnJSON(false, '', {weekId: weekId, days: array})
 		} else {
 			return makeReturnJSON(true, 'You\'re not logged in !', {})
 		}
 	}
-	
+
 	async setBooking(weekId, dayNumber, booked) {
 		if (this.isLoggedIn) {
 			var bookedId = 0
 			if (booked == true) {
 				bookedId = 1
 			}
-			var res = await fetch(baseURL + 'v2/hotes/' + this.etabId + '/reservations-jours', {method: "POST",headers: {"Content-Type": "application/json","Authorization": "Bearer " + this._token},body: JSON.stringify({dayOfWeek:dayNumber,dayReserv:bookedId,web:{id:weekId}})})
+			var res = await fetch(baseURL + 'v2/hotes/' + this.etabId + '/reservations-jours', {
+				method: "POST",
+				headers: {"Content-Type": "application/json", "Authorization": "Bearer " + this._token},
+				body: JSON.stringify({dayOfWeek: dayNumber, dayReserv: bookedId, web: {id: weekId}})
+			})
 			var data = await res.json()
-			if(data.statusCode != undefined) {
+			if (data.statusCode != undefined) {
 				makeReturnJSON(true, 'Invalid data', {})
 			}
 			return makeReturnJSON(false, '', {
-					id: data.web.id,
-					dayNumber: data.dayOfWeek,
-					booked: booked
+				id: data.web.id,
+				dayNumber: data.dayOfWeek,
+				booked: booked
 			})
 		} else {
 			return makeReturnJSON(true, 'You\'re not logged in !', {})
 		}
 	}
-	
+
 	async getHistory() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/historiques/hotes/' + this.etabId, {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/historiques/hotes/' + this.etabId, {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			var array = []
-			data.forEach((hist)=> {
+			data.forEach((hist) => {
 				var val = 0
 				if (hist.credit != undefined) {
-					val = hist.credit/100
+					val = hist.credit / 100
 				} else {
-					val = (hist.debit/100)*-1
+					val = (hist.debit / 100) * -1
 				}
 				array.push({id: hist.id, name: hist.detail, cost: val, date: hist.date})
 			})
@@ -187,27 +205,33 @@ class Session {
 			return makeReturnJSON(true, 'You\'re not logged in !', [])
 		}
 	}
-	
+
 	async getBalance() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/comptes/hotes/' + this.etabId + '/3', {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/comptes/hotes/' + this.etabId + '/3', {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			return makeReturnJSON(false, '', {
 				id: data[0].id,
-				balance: data[0].montant/100,
-				estimatedBalance: data[0].montantEstime/100,
-				estimatedFor: data[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/','.').replace(/(\d{2})\.(\d{2})\.(\d{4})/,'$3-$2-$1'),
+				balance: data[0].montant / 100,
+				estimatedBalance: data[0].montantEstime / 100,
+				estimatedFor: data[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'),
 			})
 		} else {
 			return makeReturnJSON(true, 'You\'re not logged in !', [])
 		}
 	}
-	
+
 	async canBookEvening() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId + '/resa-soir', {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId + '/resa-soir', {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.text()
-			if (data == 'false') {
+			if (data == 'false') {
 				return makeReturnJSON(false, '', false)
 			} else {
 				return makeReturnJSON(false, '', true)
@@ -216,10 +240,13 @@ class Session {
 			return makeReturnJSON(true, 'You\'re not logged in !', null)
 		}
 	}
-	
+
 	async getEtabInfo() {
 		if (this.isLoggedIn) {
-			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId, {method: "GET",headers: {"Authorization": "Bearer " + this._token}})
+			var res = await fetch(baseURL + 'v1/hotes/' + this.etabId, {
+				method: "GET",
+				headers: {"Authorization": "Bearer " + this._token}
+			})
 			var data = await res.json()
 			return makeReturnJSON(false, '', {
 				id: data.etab.id,
@@ -229,8 +256,8 @@ class Session {
 				version: data.etab.versionTS,
 				disabled: data.etab.desactive,
 				symbol: data.etab.currencySymbol,
-				prixDej: date.prixDej/100,
-				minCreditAdd: data.etab.configuration.montantCreditMini/100,
+				prixDej: date.prixDej / 100,
+				minCreditAdd: data.etab.configuration.montantCreditMini / 100,
 				address: {
 					line1: capitalize(data.etab.adr1),
 					line2: capitalize(data.etab.adr2),
@@ -251,8 +278,6 @@ class Session {
 			return makeReturnJSON(true, 'You\'re not logged in !', {})
 		}
 	}
-	
-	
 }
 
 module.exports = Session
