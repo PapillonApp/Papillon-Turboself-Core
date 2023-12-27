@@ -256,7 +256,7 @@ class Session {
 				version: data.etab.versionTS,
 				disabled: data.etab.desactive,
 				symbol: data.etab.currencySymbol,
-				prixDej: date.prixDej / 100,
+				prixDej: data.prixDej / 100,
 				minCreditAdd: data.etab.configuration.montantCreditMini / 100,
 				address: {
 					line1: capitalize(data.etab.adr1),
