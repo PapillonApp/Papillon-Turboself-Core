@@ -22,17 +22,17 @@ Le module est exporté vers NPM, il doit donc respecter les règles de codage de
   - [x] Obtenir les informations de réservation du soir
   - [x] Obtenir les informations de l'établissement
 - [ ] Integration dans Papillon
-  - [ ] Ajout de la connection au compte Turboself
-  - [ ] Informations sur le compte
-  - [ ] Informations sur l'établissement
+  - [x] Ajout de la connection au compte Turboself
+  - [x] Informations sur le compte
+  - [x] Informations sur l'établissement
   - [ ] Informations sur les réservations
   - [ ] Ajout/Suppression d'une réservation
-  - [ ] Historique de transactions
+  - [x] Historique de transactions
   - [ ] Récupération du QR code
   - [ ] Ajout du QR dans dans Apple Carte (Wallet)
   - [ ] Ajout du QR dans dans Google Wallet
   - [ ] Ajout du QR dans dans Samsung Wallet
-  - [ ] Information sur le solde
+  - [x] Information sur le solde
 
 ## 🔧 Utilisation
 
