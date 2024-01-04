@@ -6,7 +6,7 @@
   "author" : "Rémy Godet <remy.godet@icloud.com>",
   "repository" : {"type": "git", "url": "git://github.com/PapillonApp/Papillon-Turboself-Core.git"},
   "main" : "index.js",
-  "version" : "1.0.7",
+  "version" : "1.0.8",
   "files": [
     "index.js",
     "README.md",

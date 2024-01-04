@@ -171,14 +171,10 @@ class Session {
 			})
 			var data = await res.json()
 			if (data.statusCode != undefined) {
-				makeReturnJSON(true, 'Invalid data', {})
-			}
-			var id = null
-			if (data.web.id) {
-				id = data.web.id
+				return makeReturnJSON(true, data.message, {})
 			}
 			return makeReturnJSON(false, '', {
-				id: id,
+				id: null,
 				dayNumber: data.dayOfWeek,
 				booked: booked
 			})
