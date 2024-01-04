@@ -173,8 +173,12 @@ class Session {
 			if (data.statusCode != undefined) {
 				makeReturnJSON(true, 'Invalid data', {})
 			}
+			var id = null
+			if (data.web.id) {
+				id = data.web.id
+			}
 			return makeReturnJSON(false, '', {
-				id: data.web.id,
+				id: id,
 				dayNumber: data.dayOfWeek,
 				booked: booked
 			})
