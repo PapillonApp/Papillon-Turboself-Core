@@ -13,6 +13,13 @@ function makeReturnJSON(err, errMessage, data) {
 	return {error: err, errorMessage: errMessage, data: data}
 }
 
+function NullIfNotExist(value) {
+	if (value == undefined) {
+		return null
+	}
+	return value
+}
+
 class Session {
 	constructor() {
 		this._token = null;
@@ -102,10 +109,10 @@ class Session {
 			})
 			return makeReturnJSON(false, '', {
 				userInfo: {
-					id: data.comptesHote[0].id,
-					balance: data.comptesHote[0].montant / 100,
-					estimatedBalance: data.comptesHote[0].montantEstime / 100,
-					estimatedFor: data.comptesHote[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'),
+					id: data.comptesHote[0]?.id ?? null,
+					balance: data.comptesHote[0]?.montant / 100 ?? 0,
+					estimatedBalance: data.comptesHote[0]?.montantEstime / 100 ?? 0,
+					estimatedFor: data.comptesHote[0]?.montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1') ?? '00-00-0000',
 				},
 				history: array
 			})
@@ -214,10 +221,10 @@ class Session {
 			})
 			var data = await res.json()
 			return makeReturnJSON(false, '', {
-				id: data[0].id,
-				balance: data[0].montant / 100,
-				estimatedBalance: data[0].montantEstime / 100,
-				estimatedFor: data[0].montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1'),
+				id: data[0]?.id ?? null,
+				balance: data[0]?.montant / 100 ?? 0,
+				estimatedBalance: data[0]?.montantEstime / 100 ?? 0,
+				estimatedFor: data[0]?.montantEstimeMsg.replace('Montant estimé au ', '').replaceAll('/', '.').replace(/(\d{2})\.(\d{2})\.(\d{4})/, '$3-$2-$1') ?? '00-00-0000',
 			})
 		} else {
 			return makeReturnJSON(true, 'You\'re not logged in !', [])
